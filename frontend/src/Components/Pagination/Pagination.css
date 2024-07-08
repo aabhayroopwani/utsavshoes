@@ -1,0 +1,19 @@
+#pagination{
+    text-align: center;
+}
+#pagination a{
+    text-decoration: none;
+    background-color: black;
+    padding: 15px 20px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 600;
+    margin: 5px;
+}
+#pagination a i{
+    font-size: 16px;
+    font-weight: 600;
+}
+#pagination :nth-child(3){
+    background-color: rgb(243,181,25);
+}

@@ -1,0 +1,15 @@
+#page-header{
+    background-image: url('../Assets/shoebannershop.png');
+    width: 100%;
+    height: 60vh;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 14px 10px;
+}
+#page-header h2,
+#page-header p{
+    color: white;
+}

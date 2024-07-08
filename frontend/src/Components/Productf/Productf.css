@@ -1,0 +1,35 @@
+#product1{
+    text-align: center;
+}
+#product1 .pro-container{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    flex-wrap: wrap;
+}
+@media (max-width: 799px)
+{
+    .section-p1{
+        padding: 40px 40px;
+    }
+    #product1 .pro-container{
+        justify-content: center;
+    }
+    #product1 .pro{
+        margin: 15px;
+    }
+}
+@media (max-width: 477px){
+    .section-p1{
+        padding: 20px;
+    }
+    h1{
+        font-size: 38px;
+    }
+    h2{
+        font-size: 32px;
+    }
+    #product1 .pro{
+        width: 100%;
+    }
+}

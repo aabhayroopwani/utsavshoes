@@ -1,0 +1,23 @@
+footer div img{
+    width: 100px;
+    height: 100px;
+}
+footer div i{
+    margin: 3px 3px;
+    cursor: pointer;
+}
+footer div i:nth-child(1):hover{
+    color: rgb(0, 123, 255);
+}
+footer div i:nth-child(2):hover{
+    color: rgb(182, 16, 124);
+}
+footer div i:nth-child(3):hover{
+    color: rgb(0, 170, 255);
+}
+footer div i:nth-child(4):hover{
+    color: red;
+}
+footer div i:nth-child(5):hover{
+    color: red;
+}
