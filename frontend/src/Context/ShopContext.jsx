@@ -13,8 +13,6 @@ const getDefaultCart = () =>{
 
 const ShopContextProvider = (props) => {
 
-    // const all_product = [];
-    // const [all_product,setAll_product] = useState([]);
     const [cartItems,setCartItems] = useState(getDefaultCart());
 
     const addToCart = (itemId) =>{
@@ -29,6 +27,7 @@ const ShopContextProvider = (props) => {
         {
             if(cartItems[item]>0)
             {
+                console.log(cartItems[item]);
                 let itemInfo = all_product.find((product)=> product.id===Number(item));
                 totalAmount += (itemInfo.new_price * cartItems[item]);
             }

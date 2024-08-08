@@ -21,9 +21,10 @@ export const Cartitems = () => {
             <tbody>
             {
                 all_product.map((e)=>{
-                    
+
                     if(cartItems[e.id]>0)
                     {
+                        console.log(e);
                         return <tr>
                                     <td><i onClick={()=>{removeFromCart(e.id)}} className="far fa-times-circle"></i></td>
                                     <td><img src={e.image} alt=""/></td>
@@ -43,7 +44,7 @@ export const Cartitems = () => {
         <div id="coupon">
             <h3>apply coupon</h3>
             <div><input type="text" placeholder="enter your coupon"/>
-                <button class="normal">Apply</button>
+                <button className="normal">Apply</button>
             </div>
         </div>
         <div id="subtotal">
@@ -62,7 +63,7 @@ export const Cartitems = () => {
                     <td><strong>{getTotalCartAmount()}</strong></td>
                 </tr>
             </table>
-            <button class="normal">proceed to checkout</button>
+            <button className="normal">proceed to checkout</button>
         </div>
         </div>
     </section>

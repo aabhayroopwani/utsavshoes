@@ -9,6 +9,23 @@ import { ShopContext } from '../../Context/ShopContext'
 export const Navbar = () => {
   const [menu,setMenu] = useState("home");
   const {getTotalCartItems} = useContext(ShopContext);
+  const nav = document.getElementById('navbar');
+  function Opennav(){
+    const bar = document.getElementById('bar');
+    if(bar){
+        bar.addEventListener('click', () => {
+            nav.classList.add('active');
+        })
+    }
+  }
+  function Closenav(){
+    const close = document.getElementById('close');
+    if(close){
+      close.addEventListener('click', () => {
+          nav.classList.remove('active');
+      })
+    }
+  }
   return (
     <section id="header">
         <a href="#"><img id="logo" src={logo} alt="" /></a>
@@ -21,7 +38,7 @@ export const Navbar = () => {
                 <li onClick={()=>{setMenu("contact")}} className={menu==="contact"?"active":""}><Link className='nava' style={{textDecoration: 'none'}} to='/Contact'>Contact</Link></li>
                 <li onClick={()=>{setMenu("cart")}} id="lg-bag" className={menu==="cart"?"active":""}><Link className='nava' style={{textDecoration: 'none'}} to='/Cart'><img src={cart_icon} alt=""/></Link></li>
                 <li><div id="cart-count">{getTotalCartItems()}</div></li>
-                <a href="#" id="close"><i className="far fa-times"></i></a>
+                <a href="#" id="close" onClick={Closenav()}><i className="far fa-times"></i></a>
             </ul>
             <div>
               {localStorage.getItem('auth-token')
@@ -31,7 +48,7 @@ export const Navbar = () => {
         </div>
         <div id="mobile">
             <Link className='nava' style={{textDecoration: 'none'}} to='/Cart'><img src={cart_icon} alt="" onClick={()=>{setMenu("cart")}} className={menu==="cart"?"active":""} /></Link>
-            <i id="bar" className="fas fa-outdent"></i>
+            <i id="bar" className="fas fa-outdent" onClick={Opennav()}></i>
         </div>
     </section>
   )

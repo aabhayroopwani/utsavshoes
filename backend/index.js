@@ -1,23 +1,51 @@
-const port = 4000;
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+// bearer token the peson having token is owner of it
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
-const { type } = require("os");
-const { error } = require("console");
+const { error } = require('console');
+const fs = require("fs");
+// const { type } = require("os");
+// const { error } = require("console");
 
-app.use(express.json());
-app.use(cors()); 
-
+app.use(express.json({limit: "16kb"}));
+app.use(cors({
+    origin: process.env.CORS_ORIGIN,
+})); 
 // Database connection with mongodb
-mongoose.connect("mongodb+srv://utsavshoes:utsavshoes21@cluster0.cea5xyo.mongodb.net/utsavshoes");
+
+const connectDB =  async () => {
+    try {
+        await mongoose.connect(`${process.env.MONGODB_URI}`);
+        console.log("MONGODB connected!!!");
+        app.on("error",()=>{
+            console.log("ERROR: ",error);
+            throw error;
+        })
+    } catch (error) {
+        console.error("ERROR: ",error);
+        throw error;
+        process.exit(1);
+    }
+}
+
+connectDB();
 
 app.get("/",(req,res)=>{
     res.send("Express is running");
 })
+
+// starting other
+
+// import userRouter from './user.routes.js';
+
+// app.use("/api/v1/users",userRouter);
+
+// ending
 
 // Image storage Engine
 const storage = multer.diskStorage({
@@ -33,9 +61,11 @@ const upload = multer({storage:storage});
 app.use('/images',express.static('upload/images'));
 
 app.post("/upload",upload.single('product'),(req,res)=>{
+    // res.end("fdsafads")
+    // res.set("content-type","application/json")
     res.json({
         success: 1,
-        image_url: `http://localhost:${port}/images/${req.file.filename}`
+        image_url: `http://localhost:${process.env.PORT}/images/${req.file.filename}`
     })
 })
 
@@ -71,7 +101,7 @@ const Product = mongoose.model("Product",{
     avilable:{
         type: Boolean,
         default: true,
-    },
+    }
 })
 
 app.post('/addproduct',async(req,res)=>{
@@ -93,7 +123,7 @@ app.post('/addproduct',async(req,res)=>{
         new_price:req.body.new_price,
         old_price:req.body.old_price,
     });
-    console.log(product);
+    // console.log(product);
     await product.save();
     console.log("Saved");
     res.json({
@@ -167,7 +197,7 @@ app.post('/signup',async(req,res)=>{
             id:user.id
         }
     }
-    const token = jwt.sign(data,'secret_ecom');
+    const token = jwt.sign(data,`${process.env.JWT_KEY}`);
     res.json({success:true,token});
 })
 
@@ -183,7 +213,7 @@ app.post('/login',async(req,res)=>{
                     id:user.id
                 }
             }
-            const token = jwt.sign(data,'secret_ecom');
+            const token = jwt.sign(data,`${process.env.JWT_KEY}`);
             res.json({success:true,token});
         }
         else{
@@ -195,9 +225,9 @@ app.post('/login',async(req,res)=>{
     }
 })
 // Api create
-app.listen(port,(error)=>{
+app.listen(process.env.PORT,(error)=>{
     if(!error){
-        console.log("Server running at port "+port);
+        console.log(`Server running at port ${process.env.PORT}`);
     }
     else{
         console.log("Error: "+error);
